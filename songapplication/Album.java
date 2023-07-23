@@ -7,8 +7,31 @@ import java.util.List;
 public class Album {
     private String albumName;
     private String artistName;
-
     private List<Song> songList;
+
+    public String getAlbumName() {
+        return albumName;
+    }
+
+    public void setAlbumName(String albumName) {
+        this.albumName = albumName;
+    }
+
+    public String getArtistName() {
+        return artistName;
+    }
+
+    public void setArtistName(String artistName) {
+        this.artistName = artistName;
+    }
+
+    public List<Song> getSongList() {
+        return songList;
+    }
+
+    public void setSongList(List<Song> songList) {
+        this.songList = songList;
+    }
 
     public Album(String albumName, String artistName) {
         this.albumName = albumName;
@@ -17,58 +40,64 @@ public class Album {
     }
 
     public boolean findSongByTitle(String title){
-//        int i = 0;
-//        while(true){
-//            if(this.songList.get(i).getTitle() == title){
-//                return true;
-//            }
-//        }
 
-        // Iterating over the song list
-        for(Song song: songList){
+        //Iterating over the Song List
+        for(Song song:songList){
+
             if(song.getTitle().equals(title)){
                 return true;
             }
         }
-        // Unable to find out song
+        //Unable to find out song
         return false;
 
     }
+    public String addNewSongToAlbum(String title,double duration){
 
-    public String addNewSongToAlbum(String title, double duration){
-        // Some quick validation
+        //Some quick validation
         if(findSongByTitle(title)){
             return "Song is already added";
         }
-
-        Song song = new Song(title, duration);
+        Song song = new Song(title,duration);
         this.songList.add(song);
         return "Song has been added successfully";
     }
-    public String addSongToPlayList(int songNo, LinkedList<Song> playlist){
-        // Add this songNo (album songList -> songNo)
-        //songNo :-> 1 2 3 4 5
-        //index :-> 0 1 2 3 4
 
-        int index = songNo - 1;
-        // Once you find out that song, add it to the end of playList
-        if(index >= 0 && index < songList.size()){
+    public String addSongToPlayList(int songNo, ArrayList<Song> playList){
+
+        //Add this songNo (album songList -> songNo)
+        //songNo :-> 1 2 3 4 5
+        //index :->  0 1 2 3 4
+
+        int index = songNo -1;
+
+        //Once you find out that song, add it to the end of playList
+        if(index>=0 && index<songList.size()){
+
             Song song = songList.get(index);
-            playlist.add(song);
+            playList.add(song);
             return "Song added to playList successfully";
         }else{
             return "Song No entered is out of range";
         }
     }
-    public String addSongToPlayList(String title, LinkedList<Song> playlist){
-        // Assume that song is present in that songList
-        for(Song song: songList){
+
+    public String addSongToPlayList(String title,ArrayList<Song> playlist){
+
+        //Assume that song is present in that songList
+
+        for(Song song : songList){
+
             if(song.getTitle().equals(title)){
+
                 playlist.add(song);
                 return "Song added to playList";
             }
+
         }
+
         return "No song found with given title";
+
     }
 }
 
